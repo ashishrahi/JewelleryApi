@@ -2,7 +2,9 @@
     const multer = require('multer')
     const upload = require('../../middleware/multer.middleware')
     const cloudinary = require('../../config/cloudinary.config')
-
+    const twilio = require('twilio');
+    const otpGenerator = require('otp-generator')
+    const twilioClient = new twilio(TWILIO_ACCOUNT_SID,TWILIO_AUTH_TOKEN)
 //------------------Registration of Karigar ------------------
 
 exports.registerKarigar = async(req,res)=>{
@@ -76,7 +78,7 @@ exports.getKarigars = async(req,res)=>{
 
 //-------------- Active Karigar Status
 
-                exports.activeKarigarStatus=async(req,res)=>{
+                exports.activeKarigarStatus = async(req,res)=>{
                 try {
                     const activeKarigar = await Karigar.find({status:true})
                     if(!activeKarigar) return res.status(404).send('Karigar not found')
@@ -122,6 +124,22 @@ exports.getAssignedKarigar = async (req, res) => {
         res.status(500).json(error)
     }
 }
+
+
+///////////////////   Karigar OtpLogin //////////////////////////////
+
+exports.OptKarigarlogin = async(req,res)=>{
+    const{phonenumber} = req.body;
+ try {
+   
+    const otp = otpGenerator.generate(6,{ upperCaseAlphabets: false, specialChars: false })
+    await Karigar.findOneandUpdate({phonenumber:phonenumber},{otp:otp})
+
+    res.status(500).json(otp)
+     } 
+catch (error) {
+     res.status(500).json(error)
+    }}
 
 
     

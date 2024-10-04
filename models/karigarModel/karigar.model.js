@@ -36,7 +36,7 @@ const addressSchema = new mongoose.Schema({
         type:String,
         uppercase:true,
     },
-    phone:{
+    phonenumber:{
         type:String,
         required: true,
     },
@@ -51,6 +51,10 @@ const addressSchema = new mongoose.Schema({
     address:{
         type:[addressSchema],
     },  
+    otp:{
+        type:String,
+        default: null,
+    },
     status:{
         type:Boolean,
         default:'true',

@@ -3,7 +3,7 @@ const router = express.Router();
 const multer = require('multer');
 const upload = require('../../middleware/multer.middleware');
 const {registerKarigar,getKarigars,getbyIdKarigar,updateKarigarStatus,updateKarigarDetails
-    ,activeKarigarStatus,inactiveKarigarStatus,getAssignedKarigar
+    ,activeKarigarStatus,inactiveKarigarStatus,getAssignedKarigar,OptKarigarlogin
 }= require('../../controller/karigarController/karigar.controller')
     
 //---------Register
@@ -36,6 +36,9 @@ router.put('/:id',upload.single('file'),updateKarigarDetails)
 
 // ....... getAssignedKarigar
 router.get('/assignedKarigar',getAssignedKarigar)
+
+// ....... otp login
+router.post('/send-sms',OptKarigarlogin)
 
 
 

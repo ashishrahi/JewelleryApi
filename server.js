@@ -1,6 +1,6 @@
 const express = require('express')
 const bodyParser = require('body-parser');
-
+const twilio = require('twilio');
 //--------------Imported components 
 const authRoute = require('./routes/authRoute/auth.route')
 const usersRoute = require('./routes/usersRoute/users.route')
@@ -31,6 +31,7 @@ const multer = require('multer')
 var cors = require('cors') 
 const path = require('path');
 require('dotenv').config();
+const client = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 
 
 //----------------------- Database Config -------------------------------------
